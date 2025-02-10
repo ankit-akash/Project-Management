@@ -33,38 +33,38 @@ This project demonstrates a microservices architecture designed to manage differ
 
 2. Navigate to the project directory:
    ```bash
-cd your-repo-name
+   cd your-repo-name
 
 3. Build the project using Maven:
    ```bash
-mvn clean install
+   mvn clean install
 
 ### Running the Services
 
 1. Start the Eureka Server:
    ```bash
-cd eureka-server
-mvn spring-boot:run
+   cd eureka-server
+   mvn spring-boot:run
 
 2. Start the Config Server:
    ```bash
-cd config-server
-mvn spring-boot:run
+   cd config-server
+   mvn spring-boot:run
 
 3. Start the Manager, Employee, and Project Services:
    ```bash
-cd manager-service
-mvn spring-boot:run
+   cd manager-service
+   mvn spring-boot:run
 
    ```bash
-cd employee-service
-mvn spring-boot:run
+   cd employee-service
+   mvn spring-boot:run
 
    ```bash
-cd project-service
-mvn spring-boot:run
+   cd project-service
+   mvn spring-boot:run
 
 4. Start the API Gateway:
    ```bash
-cd api-gateway
-mvn spring-boot:run
+   cd api-gateway
+   mvn spring-boot:run
