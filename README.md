@@ -32,39 +32,39 @@ This project demonstrates a microservices architecture designed to manage differ
    git clone https://github.com/yourusername/your-repo-name.git
 
 2. Navigate to the project directory:
-```bash
+   ```bash
 cd your-repo-name
 
 3. Build the project using Maven:
-```bash
+   ```bash
 mvn clean install
 
 ### Running the Services
 
 1. Start the Eureka Server:
-```bash
+   ```bash
 cd eureka-server
 mvn spring-boot:run
 
 2. Start the Config Server:
-```bash
+   ```bash
 cd config-server
 mvn spring-boot:run
 
 3. Start the Manager, Employee, and Project Services:
-```bash
+   ```bash
 cd manager-service
 mvn spring-boot:run
 
-```bash
+   ```bash
 cd employee-service
 mvn spring-boot:run
 
-```bash
+   ```bash
 cd project-service
 mvn spring-boot:run
 
 4. Start the API Gateway:
-```bash
+   ```bash
 cd api-gateway
 mvn spring-boot:run
