@@ -11,7 +11,6 @@ import com.ProjectService.DTO.ProjectDTO;
 import com.ProjectService.entity.Project;
 import com.ProjectService.exception.NoProjectFoundByIdException;
 import com.ProjectService.exception.NoProjectFoundException;
-import com.ProjectService.exception.SaveProjectException;
 import com.ProjectService.externalServices.EmployeeServices;
 import com.ProjectService.repo.ProjectRepo;
 
@@ -56,15 +55,28 @@ public class ProjectServiceImpl implements ProjectService {
 		project.setEmployees(listOfEmployee);
 		return project;
 	}
+	
+	// Update project details
+	public Project updateProject(long projectId, Project projectDetails) {
+	    Project existingProject = projectRepo.findById(projectId).orElse(null);
+	    if (existingProject == null) {
+	        throw new NoProjectFoundByIdException("No Project with id " + projectId + " is present");
+	    }
+	    existingProject.setProjectName(projectDetails.getProjectName());
+	    existingProject.setProjectDesc(projectDetails.getProjectDesc());
+	    // Update other fields as necessary
+	    return projectRepo.save(existingProject);
+	}
+
 
 	// Delete project by ID
-	public String deleteProjectById(long projectId) {
+	public Project deleteProjectById(long projectId) {
 		Project project = projectRepo.findById(projectId).orElse(null);
 		if (project == null) {
 			throw new NoProjectFoundByIdException("No Project with Id " + projectId + " is present to delete");
 		}
 		projectRepo.deleteById(projectId);
-		return "Deleted";
+		return project;
 	}
 
 	// Get project by ID for manager

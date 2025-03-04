@@ -1,10 +1,11 @@
 package com.EmployeeService.service;
 
-import org.springframework.web.bind.annotation.PathVariable;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
 
 import com.EmployeeService.entity.Employee;
-
-import java.util.List;
 
 public interface EmployeeService {
 
@@ -14,7 +15,7 @@ public interface EmployeeService {
 
     public Employee getEmployeeById(long employeeId);
 
-    public String deleteEmployeeById(long employeeId);
+    public ResponseEntity<Map<String, String>> deleteEmployeeById(long employeeId);
 
     public Employee updateProfile(long employeeId, Employee employee);
 

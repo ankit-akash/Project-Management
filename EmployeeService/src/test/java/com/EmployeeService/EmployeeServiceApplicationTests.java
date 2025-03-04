@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
 import com.EmployeeService.DTO.ProjectDTO;
 import com.EmployeeService.entity.Employee;
@@ -102,7 +104,7 @@ public class EmployeeServiceApplicationTests {
         when(employeeRepo.findById(1L)).thenReturn(Optional.of(employee));
         doNothing().when(employeeRepo).deleteById(1L);
 
-        String result = employeeService.deleteEmployeeById(1L);
+        ResponseEntity<Map<String, String>> result = employeeService.deleteEmployeeById(1L);
         assertEquals("Employee Deleted Successfully", result);
     }
 

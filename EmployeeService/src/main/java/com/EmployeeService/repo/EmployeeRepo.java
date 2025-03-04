@@ -12,6 +12,6 @@ import java.util.List;
 public interface EmployeeRepo extends JpaRepository<Employee,Long> {
 
     // Find employees by project ID
-    List<Employee> findByProjectId(long courseId);
+    List<Employee> findByProjectId(long projectId);
 
 }

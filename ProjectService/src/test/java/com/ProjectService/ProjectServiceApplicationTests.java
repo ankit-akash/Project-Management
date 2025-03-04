@@ -111,7 +111,7 @@ public class ProjectServiceApplicationTests {
         when(projectRepo.findById(1L)).thenReturn(Optional.of(project));
         doNothing().when(projectRepo).deleteById(1L);
 
-        String result = projectService.deleteProjectById(1L);
+        Project result = projectService.deleteProjectById(1L);
         assertEquals("Deleted", result);
     }
 

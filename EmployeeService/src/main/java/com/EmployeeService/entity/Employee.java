@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Entity			// Marks this class as a JPA entity
 public class Employee {
     @Id
-    @Min(value = 1, message = "Employee ID must be greater than 0")
+    //@Min(value = 1, message = "Employee ID must be greater than 0")
     private long employeeId;
 
     @NotBlank(message = "Employee name is mandatory")
@@ -27,6 +27,6 @@ public class Employee {
     @Email(message = "Email should be valid")
     private String employeeEmail;
 
-    @Min(value = 1, message = "Project ID must be greater than 0")
-    private long projectId;  // Project ID which the employee is associated
+    //@Min(value = 1, message = "Project ID must be greater than 0")
+    private long projectId;  // Project ID which the employee is associated with
 }

@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
 import com.ManagerService.DTO.ProjectDTO;
 import com.ManagerService.entity.Manager;
@@ -105,7 +107,7 @@ public class ManagerServiceApplicationTests {
         when(managerRepo.findById(1L)).thenReturn(Optional.of(manager));
         doNothing().when(managerRepo).deleteById(1L);
 
-        String result = managerService.deleteManagerById(1L);
+        ResponseEntity<Map<String, String>> result = managerService.deleteManagerById(1L);
         assertEquals("Manager Deleted Successfully", result);
     }
 

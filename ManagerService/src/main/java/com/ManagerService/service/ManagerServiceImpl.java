@@ -1,13 +1,15 @@
 package com.ManagerService.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ManagerService.DTO.ProjectDTO;
 import com.ManagerService.entity.Manager;
-import com.ManagerService.exceptions.DeleteManagerByIdNotFoundException;
 import com.ManagerService.exceptions.ManagerNotFoundByIdException;
 import com.ManagerService.exceptions.ManagerNotFoundException;
 import com.ManagerService.externalService.ProjectServices;
@@ -46,17 +48,28 @@ public class ManagerServiceImpl implements ManagerService {
 	}
 
 	// Delete manager by ID
-	public String deleteManagerById(long managerId) {
+	public ResponseEntity<Map<String, String>> deleteManagerById(long managerId) {
 		Manager manager = managerRepo.findById(managerId).orElse(null);
-		if (manager == null) {
-			throw new DeleteManagerByIdNotFoundException("Manager Delete Unsuccessfull");
-		}
 		managerRepo.deleteById(managerId);
-		return "Manager Deleted Successfully";
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Manager Deleted Successfully");
+        return ResponseEntity.ok(response);
 
 	}
+	
+	// Assign project to manager
+		public Manager assignProjectToManager(long managerId, long projectId) {
+			Manager manager = managerRepo.findById(managerId).orElse(null);
+			if (manager == null) {
+				throw new ManagerNotFoundByIdException("Manager not found by Id " + managerId);
+			}
+			ProjectDTO projectDTO = projectServices.getProjectByIdForManager(projectId);
+			manager.setProjectId(projectDTO.getProjectId());
 
-	// Get project managed by manager ID
+			return managerRepo.save(manager);
+		}
+
+	// Get project by manager ID
 	public ProjectDTO getAssignProjectByManagerId(long managerId) {
 		Manager manager = managerRepo.findById(managerId).orElse(null);
 		if (manager == null) {
@@ -68,16 +81,26 @@ public class ManagerServiceImpl implements ManagerService {
 		return projectDTO;
 	}
 
-	// Assign project to manager
-	public Manager assignProjectToManager(long managerId, long projectId) {
-		Manager manager = managerRepo.findById(managerId).orElse(null);
-		if (manager == null) {
-			throw new ManagerNotFoundByIdException("Manager not found by Id " + managerId);
+	public Manager getManagerByProjectId(long projectId) {
+		Manager manager = managerRepo.findById(projectId).orElse(null);
+		if (manager==null) {
+			throw new ManagerNotFoundException("Managers record not found");
 		}
-		ProjectDTO projectDTO = projectServices.getProjectByIdForManager(projectId);
-		manager.setProjectId(projectDTO.getProjectId());
-
-		return managerRepo.save(manager);
+		return manager;
 	}
+
+    @Override
+    public Manager updateManager(long managerId, Manager manager) {
+        Manager existingManager = managerRepo.findById(managerId).orElse(null);
+        if (existingManager == null) {
+            throw new ManagerNotFoundByIdException("Manager not found by Id " + managerId);
+        }
+        existingManager.setManagerName(manager.getManagerName());
+        existingManager.setManagerEmail(manager.getManagerEmail());
+        existingManager.setProjectId(manager.getProjectId());
+        return managerRepo.save(existingManager);
+    }
+
+
 
 }

@@ -13,8 +13,8 @@ import com.EmployeeService.DTO.ProjectDTO;
 // Feign client for Project Service
 public interface ProjectServices {
 
-	// Get project by ID
+	// Get project by EMP ID
 	@GetMapping("/getById/{projectId}")
-	public ProjectDTO getProjectById(@PathVariable("projectId") long projectId);
+	public ProjectDTO getProjectById(@PathVariable long projectId);
 
 }

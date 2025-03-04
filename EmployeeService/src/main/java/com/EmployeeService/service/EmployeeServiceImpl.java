@@ -1,15 +1,18 @@
 package com.EmployeeService.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.EmployeeService.DTO.ProjectDTO;
 import com.EmployeeService.entity.Employee;
+import com.EmployeeService.exception.DeleteEmployeeByIdException;
 import com.EmployeeService.exception.EmployeeNotFoundByIdException;
 import com.EmployeeService.exception.EmployeeNotFoundException;
-import com.EmployeeService.exception.ProjectNotFoundException;
 import com.EmployeeService.externalServices.ProjectServices;
 import com.EmployeeService.repo.EmployeeRepo;
 
@@ -46,14 +49,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	// Delete employee by ID
-	public String deleteEmployeeById(long employeeId) {
-		Employee employee = employeeRepo.findById(employeeId).orElse(null);
-		if (employee == null) {
-			throw new EmployeeNotFoundByIdException("Employee By Id " + employeeId + " is not Found to delete");
-		}
-		employeeRepo.deleteById(employeeId);
-		return "Employee Deleted Successfully";
-	}
+	public ResponseEntity<Map<String, String>> deleteEmployeeById(long employeeId) {
+        Employee employee = employeeRepo.findById(employeeId).orElse(null);
+        if (employee == null) {
+            throw new DeleteEmployeeByIdException("Employee By Id " + employeeId + " is not Found to delete");
+        }
+        employeeRepo.deleteById(employeeId);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Employee Deleted Successfully");
+        return ResponseEntity.ok(response);
+    }
 
 	// Update employee profile
 	public Employee updateProfile(long employeeId, Employee employee) {
@@ -99,7 +105,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	// Get all employees by project ID
 	public List<Employee> getAllEmployeesByProjectId(long projectId) {
-		// TODO Auto-generated method stub
 		return employeeRepo.findByProjectId(projectId);
 	}
 

@@ -2,8 +2,11 @@ package com.EmployeeService.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +21,9 @@ import com.EmployeeService.service.EmployeeServiceImpl;
 
 import jakarta.validation.Valid;
 
+//@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/employee")
-// for Employee Service
 public class EmployeeController {
 
     @Autowired
@@ -41,13 +44,13 @@ public class EmployeeController {
 
     // Get employee by EMPID
     @GetMapping("/getById/{employeeId}")		// http://localhost:3434/employee/getById/112233
-    public Employee getEmployeeById(long employeeId){
+    public Employee getEmployeeById(@PathVariable long employeeId){
         return employeeService.getEmployeeById(employeeId);
     }
 
     //Delete Emp By EMPID
-    @DeleteMapping("/deleteById/{employeeId}")	// http://localhost:3434/employee/deleteById/112233
-    public String deleteEmployeeById(@PathVariable long employeeId){
+    @DeleteMapping("/deleteById/{employeeId}")    // http://localhost:3434/employee/deleteById/112233
+    public ResponseEntity<Map<String, String>> deleteEmployeeById(@PathVariable long employeeId){
         return employeeService.deleteEmployeeById(employeeId);
     }
 

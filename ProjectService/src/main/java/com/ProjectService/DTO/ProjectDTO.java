@@ -1,5 +1,7 @@
 package com.ProjectService.DTO;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProjectDTO {
 
-	private long projectId;
-	private String projectName;
-	private String projectDesc;
+    private long projectId;
+    private String projectName;
+    private String projectDesc;
 }

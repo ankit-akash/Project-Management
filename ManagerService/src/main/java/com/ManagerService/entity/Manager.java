@@ -29,7 +29,7 @@ public class Manager {		// Stores the data into database
     @Email(message = "Email should be valid")
     private String managerEmail;
 
-    @NotNull(message = "Project ID is mandatory")
-    @Min(value = 1, message = "Project ID must be greater than 0")
+//    @NotNull(message = "Project ID is mandatory")
+//    @Min(value = 1, message = "Project ID must be greater than 0")
     private long projectId;	// Project ID the manager is associated with
 }
